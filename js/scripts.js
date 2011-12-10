@@ -1,3 +1,13 @@
+	var CANVAS_WIDTH = window.innerWidth, // faire widthcanvas ?
+	    CANVAS_HEIGHT = window.innerHeight, //idem ?
+	    BRUSH_SIZE = 1,
+	    BRUSH_PRESSURE = 1,
+	    COLOR = [255, 255, 255],
+	    BACKGROUND_COLOR = [0, 0, 0],
+	    brush,
+	    canvasToile,
+	    ctxT;
+
 $(function () {
 
 	var oldX, oldY, oldZ;
@@ -5,7 +15,7 @@ $(function () {
 	var modeEcriture = true;
 		var clickAllow = true;
 
-	var canvasPos, canvasToile, ctxP, ctxT; //make it global
+	var canvasPos, ctxP; //make it global
 	
 	var panneauActif = "toile";
 	
@@ -25,6 +35,7 @@ $(function () {
 			
 			// Éffacer le curseur
 			modeEcriture = false;
+			brush.strokeEnd();
 			clearCanvas(ctxP, canvasPos);
 			
 			// Ne plus se souvenir du dernier point (pour définir une nouvelle orgine par la suite)
@@ -37,9 +48,24 @@ $(function () {
 			y = 6 * y;
 			
 			dessinerCurseur(x,y);
-		
+			
 			/* Mode tracé de ligne */
 			var nouveauTrace;
+			if(oldX && modeEcriture && panneauActif == "toile" && x >= 70) { // Si il y a eu un point avant... && si en mode écriture && on est sur la toile && on est dans la zone active
+				brush.stroke( x-70, y );
+			} else {
+				nouveauTrace = true;
+			}
+
+			oldX = x; oldY = y; oldZ=z;
+			if(nouveauTrace) {
+				brush.strokeStart( x-70, y );
+			}
+		   /* Fin du mode tracé de ligne */
+			
+			
+			/* Mode tracé de ligne */
+			/*var nouveauTrace;
 			if(oldX && modeEcriture && panneauActif == "toile" && x >= 70) { // Si il y a eu un point avant... && si en mode écriture && on est sur la toile && on est dans la zone active
 				ctxT.lineTo(x-70,y);
 				ctxT.stroke();
@@ -76,6 +102,7 @@ $(function () {
 				if(modeEcriture == true && clickAllow == true) {
 					modeEcriture = false;
 					clickAllow = false;
+					brush.strokeEnd();
 					window.setTimeout(allowClick, 500);
 				}
 				else if (modeEcriture == false && clickAllow == true){
@@ -90,12 +117,20 @@ $(function () {
 	canvasPos = document.getElementById('posKinect');
 	ctxP = canvasPos.getContext('2d');
 	ctxP.save();
+
+	init(); // init des fonctions de tracé via Harmony
 	
-	canvasToile = document.getElementById('toile');  
-	ctxT = canvasToile.getContext('2d');
-	ctxT.fillRect(0,0,870,600);
-	ctxT.strokeStyle = "#FFFFFF"
-	ctxT.lineWidth = 5;
+	function init()
+	{
+		canvasToile = document.getElementById('toile');
+		ctxT = canvasToile.getContext("2d");
+
+		ctxT.fillStyle = "rgb(" + BACKGROUND_COLOR[0] + ", " + BACKGROUND_COLOR[1] + ", " + BACKGROUND_COLOR[2] + ")";
+		ctxT.fillRect(0,0,canvasToile.width, canvasToile.height);
+
+		brush = new ribbon(ctxT);
+
+	}
 
 	function allowClick() {
 		clickAllow = true;

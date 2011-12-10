@@ -32,7 +32,7 @@ body {
 }
    #canvasSliderContent {
       position:absolute;
-      aleft:-872px;
+      left:-872px;
       width:2000px;
       height:602px;
    }
