@@ -26,31 +26,47 @@ body {
    position:absolute;
    top:0;
    left:0;
-   width:872px;
-   height:602px;
+   width:870px;
+   height:600px;
    overflow:hidden;
 }
    #canvasSliderContent {
       position:absolute;
-      left:-872px;
+      left:-870px;
       width:2000px;
-      height:602px;
+      height:600px;
    }
 
-      #configuration {
-         width:870px;
-         height:600px;
+   #configuration {
+      position:relative;
+      width:870px;
+      height:600px;
+   }
+      #configuration a {
+         display:block;
+         position:absolute;
       }
       
-      #toile {
-         margin-left:70px;
-      }
+      #savePng {
+         bottom:50px;
+         right:50px;
+         width:50px;
+         height:50px;
+         background:url(../img/save.png) no-repeat top left;
+      } #savePng.hover {background-image:url(../img/save_hover.png);}
+
+   #barre_laterale {
+      background-color:#C6C6C6;
+      display:block;
+      width:70px;
+      height:600px;
+   }
+      
+   #toile {
+   }
 
 .floatLeft {
    float:left;
 }
 
-canvas {
-   border:1px solid #000;
-}
 
