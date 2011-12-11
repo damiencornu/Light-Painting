@@ -16,7 +16,6 @@
    </head>
    <body>
       <h1>Canvas Light Painting</h1>
-      <p id="modeEcriture">Mode Déplacement</p>
       
       <div id="zoneDessin">
          <canvas id="posKinect" width="870" height="600"></canvas>
@@ -24,7 +23,12 @@
             <div id="canvasSliderContent">
                
                <div id="configuration" class="floatLeft">
+                  <a href="#" id="colorWhite" class="colorSelector" data-color="[255,255,255]">Blanc</a>
+                  <a href="#" id="colorRed" class="colorSelector" data-color="[255,0,0]">Rouge</a>
+                  <a href="#" id="colorGreen" class="colorSelector" data-color="[0,255,0]">Vert</a>
+                  <a href="#" id="colorBlue" class="colorSelector" data-color="[0,0,255]">Bleu</a>
                   <a href="#" id="savePng"></a>
+                  <p id="colorPreview" style="width:50px; height:50px; position:absolute; bottom:20px; left:20px"></p>
                </div><!-- end #configuration -->
                
                

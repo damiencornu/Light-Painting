@@ -7,12 +7,15 @@ line-height: 1; } ol, ul { list-style: none; } blockquote, q { quotes: none; } b
 table { border-collapse: collapse; border-spacing: 0; }
 
 body {
-   width:960px;
+   width:900px;
    margin:0 auto;
 }
 
 #zoneDessin {
    position:relative;
+   border:1px solid #000;
+   width:870px;
+   height:600px;
 }
 
 #posKinect {
@@ -32,28 +35,39 @@ body {
 }
    #canvasSliderContent {
       position:absolute;
-      left:-870px;
+      left:-800px;
       width:2000px;
       height:600px;
    }
 
    #configuration {
       position:relative;
-      width:870px;
+      width:800px;
       height:600px;
    }
       #configuration a {
          display:block;
          position:absolute;
+         width:100px;
+         height:100px;
       }
       
       #savePng {
          bottom:50px;
          right:50px;
-         width:50px;
-         height:50px;
          background:url(../img/save.png) no-repeat top left;
       } #savePng.hover {background-image:url(../img/save_hover.png);}
+      
+      a.colorSelector {
+         border:5px solid #000;
+         text-indent:-9000em;
+      } a.colorSelector.hover { border-color : #00b4ff; }
+      
+         #colorWhite { top:20px; left:20px; background-color:rgb(255,255,255); }
+         #colorRed   { top:20px; left:140px; background-color:rgb(255,0,0); }
+         #colorGreen { top:20px; left:260px; background-color:rgb(0,255,0); }
+         #colorBlue  { top:20px; left:380px; background-color:rgb(0,0,255); }
+      
 
    #barre_laterale {
       background-color:#C6C6C6;

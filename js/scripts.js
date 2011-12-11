@@ -49,7 +49,7 @@ $(function () {
 			
 			dessinerCurseur(x,y);
 			
-			/* Mode tracé de ligne */
+			
 			var nouveauTrace;
 			if(oldX && modeEcriture && panneauActif == "toile" && x >= 70) { // Si il y a eu un point avant... && si en mode écriture && on est sur la toile && on est dans la zone active
 				brush.stroke( x-70, y );
@@ -61,29 +61,6 @@ $(function () {
 			if(nouveauTrace) {
 				brush.strokeStart( x-70, y );
 			}
-		   /* Fin du mode tracé de ligne */
-			
-			
-			/* Mode tracé de ligne */
-			/*var nouveauTrace;
-			if(oldX && modeEcriture && panneauActif == "toile" && x >= 70) { // Si il y a eu un point avant... && si en mode écriture && on est sur la toile && on est dans la zone active
-				ctxT.lineTo(x-70,y);
-				ctxT.stroke();
-			} else {
-				nouveauTrace = true;
-			}
-		
-			//ctxT.fillRect (x, y, taillePinceau, taillePinceau);
-			oldX = x; oldY = y; oldZ=z;
-		
-			if(nouveauTrace) {
-				ctxT.beginPath();
-				ctxT.moveTo(oldX, oldY);
-			}
-		   /* Fin du mode tracé de ligne */
-		
-		   /* Mode dessin de rond */
-		
 		},
 		onSwipeLeft: function() {
 			if(panneauActif == "toile") {
@@ -94,23 +71,35 @@ $(function () {
 			}
 		},
 		onSwipeRight: function() {
-			console.log("zazuuziauzuauiziaui");
 			ouvrirConfiguration();
 		},
 		onHandClick: function(x, y, z) {
-			if(panneauActif == "toile") {
-				if(modeEcriture == true && clickAllow == true) {
-					modeEcriture = false;
-					clickAllow = false;
-					brush.strokeEnd();
-					window.setTimeout(allowClick, 500);
-				}
-				else if (modeEcriture == false && clickAllow == true){
-					modeEcriture = true;
-					clickAllow = false;
-					window.setTimeout(allowClick, 500);
-				}
-			} // fin des actions sur la toile
+			if(clickAllow == true) {
+				
+				clickAllow = false;
+				
+				if(panneauActif == "toile") {
+					if(modeEcriture == true) {
+						modeEcriture = false;
+						
+						brush.strokeEnd();
+					}
+					else if (modeEcriture == false){
+						modeEcriture = true;
+					}
+				} // fin des actions sur la toile
+				else if (panneauActif == "configuration") {
+					$('.colorSelector.hover').bind("click", function(event) {
+						COLOR = eval($(this).attr('data-color'));
+						//ctxT.strokeTstyle = COLOR;
+						$('#colorPreview').css({'background-color':COLOR});
+						event.preventDefault();
+					}).trigger("click");
+				}	
+
+				window.setTimeout(allowClick, 500);
+			} // des actions seuemnt si le clic est autorisé (évite de récupérer plusieurs clics en même temps)
+
 		} // onHandClick
 	};
 	
@@ -148,7 +137,7 @@ $(function () {
 	function fermerConfiguration() {
 		if(panneauActif == "configuration") {
 			panneauActif = "";
-			$('#canvasSliderContent').animate({left:'-872px'}, 750, function() {
+			$('#canvasSliderContent').animate({left:'-800px'}, 750, function() {
 				panneauActif = "toile";
 			})
 		}
@@ -162,11 +151,11 @@ $(function () {
 	}
 	
 	function dessinerCurseur(x,y) {
+		clearCanvas(ctxP, canvasPos);
+		ctxP.lineWidth = 3;
+		ctxP.strokeStyle = "#00b4ff";
+	
 		if(panneauActif == "toile") {
-			clearCanvas(ctxP, canvasPos);
-			ctxP.lineWidth = 3;
-			ctxP.strokeStyle = "#00b4ff";
-
 			if(modeEcriture) {
 				ctxP.moveTo(x-10,y);
 				ctxP.lineTo(x+10,y);
@@ -176,17 +165,28 @@ $(function () {
 				ctxP.moveTo(x+10,y);
 				ctxP.arc(x, y, 10, 0, Math.PI*2, true);
 			}
-			ctxP.stroke();
 		}
 		else if(panneauActif == "configuration") {
 			ctxP.moveTo(x+10,y);
 			ctxP.arc(x, y, 10, 0, Math.PI*2, true);
 			
 			// Récupérer la position de la souris et voi si on est au dessus d'un élément
-			$('#configuration').children().each(function() {
-				console.log("élément");
+			$('#configuration').children('a').each(function() {
+				$this = $(this);
+				$this.removeClass('hover');
+				$position = $this.position();
+				if( x >= $position.left && x <= $position.left+$this.width() && y >= $position.top && y <= $position.top+$this.height() ) {
+					$this.addClass('hover');
+				}
 			});
 		}
+		ctxP.stroke();
 	}
+	
+	$('.colorSelector').click(function(event) {
+		COLOR = $(this).css('background-color');
+		$('#colorPreview').css({'background-color':COLOR});
+		event.preventDefault();
+	});
 
 });
