@@ -59,9 +59,11 @@ body {
       } #savePng.hover {background-image:url(../img/save_hover.png);}
       
       a.colorSelector {
-         border:5px solid #000;
+         border:3px solid #000;
+         border-radius: 53px;
+         -webkit-border-radius: 53px;
          text-indent:-9000em;
-      } a.colorSelector.hover { border-color : #00b4ff; }
+      } a.colorSelector.hover { border-color : #00b4ff;}
       
          #colorWhite { top:20px; left:20px; background-color:rgb(255,255,255); }
          #colorRed   { top:20px; left:140px; background-color:rgb(255,0,0); }

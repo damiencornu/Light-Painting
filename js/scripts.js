@@ -76,6 +76,7 @@ $(function () {
 		onHandClick: function(x, y, z) {
 			if(clickAllow == true) {
 				
+				var reAllowClick = true; // Dans certains cas on quitte l'appli
 				clickAllow = false;
 				
 				if(panneauActif == "toile") {
@@ -91,13 +92,23 @@ $(function () {
 				else if (panneauActif == "configuration") {
 					$('.colorSelector.hover').bind("click", function(event) {
 						COLOR = eval($(this).attr('data-color'));
-						//ctxT.strokeTstyle = COLOR;
 						$('#colorPreview').css({'background-color':COLOR});
 						event.preventDefault();
 					}).trigger("click");
+					$('#savePng.hover').bind("click", function(event) {
+						var canvasData = canvasToile.toDataURL("image/png");
+						console.log("canvasData : ");
+						console.log(canvasData);
+						reAllowClick = false;
+						var ajax = new XMLHttpRequest();
+						ajax.open("POST",'testSave.php',false);
+						ajax.setRequestHeader('Content-Type', 'application/upload');
+						ajax.send(canvasData );
+					}).trigger('click');
+					
 				}	
 
-				window.setTimeout(allowClick, 500);
+				if(reAllowClick) { window.setTimeout(allowClick, 500); }
 			} // des actions seuemnt si le clic est autorisé (évite de récupérer plusieurs clics en même temps)
 
 		} // onHandClick
@@ -113,7 +124,9 @@ $(function () {
 	{
 		canvasToile = document.getElementById('toile');
 		ctxT = canvasToile.getContext("2d");
-
+		
+		//$('#toile').css({'background-color':"rgb(" + BACKGROUND_COLOR[0] + ", " + BACKGROUND_COLOR[1] + ", " + BACKGROUND_COLOR[2] + ")"});
+		
 		ctxT.fillStyle = "rgb(" + BACKGROUND_COLOR[0] + ", " + BACKGROUND_COLOR[1] + ", " + BACKGROUND_COLOR[2] + ")";
 		ctxT.fillRect(0,0,canvasToile.width, canvasToile.height);
 
