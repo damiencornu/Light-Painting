@@ -15,8 +15,15 @@ if (isset($GLOBALS["HTTP_RAW_POST_DATA"]))
 
 	// Save file.  This example uses a hard coded filename for testing, 
 	// but a real application can specify filename in POST variable
-	$fp = fopen( 'test.png', 'wb' );
+	$a = time().rand(0,10);
+	$fp = fopen( 'img/creations/'.$a.'.png', 'wb' );
 	fwrite( $fp, $unencodedData);
 	fclose( $fp );
+	
+	$datas = array(
+	  "url" => $a
+	);
+	
+	   echo json_encode($datas);
 }
 ?>

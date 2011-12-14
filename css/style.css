@@ -6,17 +6,57 @@ padding: 0; border: 0; font-size: 100%; font: inherit; vertical-align: baseline;
 line-height: 1; } ol, ul { list-style: none; } blockquote, q { quotes: none; } blockquote:before, blockquote:after, q:before, q:after { content: ''; content: none; }
 table { border-collapse: collapse; border-spacing: 0; }
 
-body {
-   width:900px;
-   margin:0 auto;
-}
 
 #zoneDessin {
    position:relative;
-   border:1px solid #000;
    width:870px;
    height:600px;
 }
+
+#splash_accueil {
+   position:absolute;
+   top:0;
+   left:0;
+   width:870px;
+   height:600px;
+   z-index:1000;
+   background-color:#000;
+}
+   #splash_accueil h1, #splash_accueil p {
+      width:600px;
+      margin:30px auto 10px;
+      color:#D7D7D7;
+   }
+   #splash_accueil h1 {
+      font-size:1.5em;
+      text-align:center;
+   }
+   #splash_accueil p {
+      text-align:justify;
+   }
+   #splash_accueil #commencerDessin {
+      display:block;
+      text-align:center;
+      width:360px;
+      margin:0 auto;
+      background-color:#FFF;
+      color:#79B2C4;
+      padding:8px;
+      border-radius: 10px;
+      -webkit-border-radius: 10px;
+      text-decoration:none;
+      cursor:default;
+   }
+      #splash_accueil #commencerDessin.kinectOk {
+         background-color:#BCD8E1;
+         color:#FFF;
+         cursor:pointer;
+      }
+      
+   #splash_accueil p.plus-infos {
+      font-size:0.7em;
+   }
+      #splash_accueil p.plus-infos a {color:#BCD8E1; cursor:pointer;}
 
 #posKinect {
    position:absolute;
@@ -36,7 +76,7 @@ body {
    #canvasSliderContent {
       position:absolute;
       left:-800px;
-      width:2000px;
+      width:4000px;
       height:600px;
    }
 

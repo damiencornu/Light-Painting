@@ -2,7 +2,6 @@ function ribbon( ctxT )
 {
 	this.init( ctxT );
 }
-
 ribbon.prototype =
 {
 	ctxT: null,
