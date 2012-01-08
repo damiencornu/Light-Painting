@@ -1,6 +1,6 @@
 	var CANVAS_WIDTH = window.innerWidth, // faire widthcanvas ?
 	    CANVAS_HEIGHT = window.innerHeight, //idem ?
-	    BRUSH_SIZE = 4,
+	    BRUSH_SIZE = 2.5,
 	    BRUSH_PRESSURE = 1,
 	    COLOR = [255, 255, 255],
 	    BACKGROUND_COLOR = [0, 0, 0],
@@ -15,41 +15,51 @@ $(function () {
 		var modeEcriture = true;
 			var clickAllow = true;
 
+
 		var canvasPos, ctxP; //make it global
 	
 		var panneauActif = "splash_accueil";
+		var time = 3;
 		
 		$('#commencerDessin.kinectOk').live('click', function(event) {
 			$('#splash_accueil').fadeOut(750, function() {
-				var time = 3;
+
+				
+				ecrireTimer(time);
+				
 				var timer = window.setInterval(function() {
 					clearCanvas(ctxP, canvasPos);
 					if(time == 0) {
 						ctxP.font = "36pt Calibri,Geneva,Arial";
 						ctxP.fillStyle = "rgb(255,255,255)";
-						ctxP.fillText("Dessinez !", 200, 80);
+						ctxP.fillText("Dessinez !", 320, 80);
 						window.setTimeout(function() {
 							clearInterval(timer);
 							clearCanvas(ctxP, canvasPos);
 							panneauActif = "toile";
-						}, 500)
+						}, 1000)
 					} else {
-							ctxP.font = "36pt Calibri,Geneva,Arial";
-							ctxP.fillStyle = "rgb(255,255,255)";
-							ctxP.fillText("Reculez et attendez pour dessiner", 120, 80);
-							ctxP.font = "60pt Calibri,Geneva,Arial";
-							ctxP.fillText(time, 400, 200);
-							time--;
+						ecrireTimer(time);
 					}
 				}, 1000);
 			});
-				
+			
 			event.preventDefault();
 		});
 		
+		function ecrireTimer(tps) {
+					ctxP.font = "36pt Calibri,Geneva,Arial";
+					ctxP.fillStyle = "rgb(255,255,255)";
+					ctxP.fillText("Reculez et attendez pour dessiner", 80, 80);
+					ctxP.font = "60pt Calibri,Geneva,Arial";
+					ctxP.fillText(tps, 360, 200);
+					time--;
+				}
+		
 		DepthJS = {
 			onKinectInit: function() {
-				$('#commencerDessin').addClass('kinectOk').text('Kinect est connecté, cliquez pour dessiner')
+				$('#commencerDessin').addClass('kinectOk');
+				$('#commencerDessin + span').text('');
 			},
 			onRegister: function(x, y, z, data) {
 				ctxP.beginPath();
@@ -61,7 +71,6 @@ $(function () {
 			onUnregister: function() {
 				ctxP.closePath();
 				ctxT.closePath();
-				ctxT.save();
 			
 				// Éffacer le curseur
 				modeEcriture = false;
@@ -74,7 +83,7 @@ $(function () {
 			onMove: function(x, y, z) {
 		
 				// Mettre les données reçues de Kinect à l'échelle du canvas
-				x = 8.7 * (100 - x);
+				x = 8 * (100 - x);
 				y = 6 * y;
 			
 				if(panneauActif == "toile" || panneauActif == "configuration") {
@@ -83,21 +92,20 @@ $(function () {
 			
 			
 				var nouveauTrace;
-				if(oldX && modeEcriture && panneauActif == "toile" && x >= 70) { // Si il y a eu un point avant... && si en mode écriture && on est sur la toile && on est dans la zone active
-					brush.stroke( x-70, y );
+				if(oldX && modeEcriture && panneauActif == "toile") { // Si il y a eu un point avant... && si en mode écriture && on est sur la toile
+					brush.stroke( x, y );
 				} else {
 					nouveauTrace = true;
 				}
 
 				oldX = x; oldY = y; oldZ=z;
 				if(nouveauTrace) {
-					brush.strokeStart( x-70, y );
+					brush.strokeStart( x, y );
 				}
 			},
 			onSwipeLeft: function() {
 				if(panneauActif == "toile") {
-					ctxT.restore();
-					console.log("restaure : ");
+					
 				}
 				else if(panneauActif == "configuration") {
 					fermerConfiguration();
@@ -115,7 +123,6 @@ $(function () {
 					if(panneauActif == "toile") {
 						if(modeEcriture == true) {
 							modeEcriture = false;
-							ctxT.save();
 							brush.strokeEnd();
 						}
 						else if (modeEcriture == false){
@@ -129,25 +136,53 @@ $(function () {
 							event.preventDefault();
 						}).trigger("click");
 						$('#savePng.hover').bind("click", function(event) {
-							var canvasData = canvasToile.toDataURL("image/png");
-							reAllowClick = false;
-							$.ajax({
-									type:"POST",
-									url:'testSave.php',
-									headers:{ 'Content-Type':'application/upload' },
-									data:canvasData,
-									dataType:'json'
-								})
-								.success(function(data) {
-									$('#canvasSliderContent').append('<img src="img/creations/'+data.url+'.png" class="floatLeft">')
-										.animate({
-											'left':'-1670px'
-										}, 500, function(){
-											panneauActif="termine";
-										});
+							clearCanvas(ctxP, canvasPos);
+							$(this).removeClass('hover');
+							$('#popUpBackground, #form-finalisation').show();
+							panneauActif="popup";
+							
+							$('#form-finalisation').submit(function(event){
+								var canvasData = canvasToile.toDataURL("image/png");
+								var $pseudo = $('#pseudo');
+								var $nomCreation = $('#nom-creation');
+									$('#form-finalisation input').removeClass('must-fill-in');
 								
-								});
-						}).trigger('click');
+								var pseudo = $pseudo.val();
+								var nomCreation = $nomCreation.val();
+								var error = 0;
+								
+								if (pseudo == '') {
+									$pseudo.addClass('must-fill-in');
+									error++;;
+								}
+								if (nomCreation == '') {
+									$nomCreation.addClass('must-fill-in');
+									error++;
+								}
+								
+								if(error==0) {
+									$.ajax({
+										type:"POST",
+										url:'testSave.php',
+										data:{'canvasData':canvasData, 'pseudo':pseudo, 'nomCreation':nomCreation },
+										dataType:'text'
+									})
+									.success(function(data) {
+										clearCanvas(ctxP, canvasPos);
+										console.log("data : ");
+										console.log(data);
+										/*$('#canvasSliderContent').append('<img src="img/creations/'+data.url+'.png" class="floatLeft">')
+											.animate({
+												'left':'-1600px'
+											}, 500, function(){
+												panneauActif="termine";
+											});*/
+									});
+								}
+								event.preventDefault();
+							});
+							event.preventDefault();
+						}).trigger('click')
 					}	
 
 					if (reAllowClick) { window.setTimeout(allowClick, 500); }
@@ -158,7 +193,6 @@ $(function () {
 	
 		canvasPos = document.getElementById('posKinect');
 		ctxP = canvasPos.getContext('2d');
-		ctxP.save();
 
 		init(); // init des fonctions de tracé via Harmony
 	
@@ -236,12 +270,21 @@ $(function () {
 				});
 			}
 			ctxP.stroke();
-		}
+		} // fin de la fonction dessinerCurseur()
 	
 		$('.colorSelector').click(function(event) {
 			COLOR = $(this).css('background-color');
-			$('#colorPreview').css({'background-color':COLOR});
+			$('#cadreCouleurActuelle').css({'background-color':COLOR});
 			event.preventDefault();
 		});
+		
+		$("#popUpBackground").live('click', closePopUp);
+		$("#form-finalisation > a").live('click', closePopUp);
+		
+		function closePopUp() {
+			$('.popUp:visible').hide();
+			$('#popUpBackground').hide();
+			panneauActif ="configuration"
+		}
 
 });

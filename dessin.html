@@ -9,46 +9,54 @@
       <script src="js/libs/jquery-1.7.1.min.js" type="text/javascript" charset="utf-8"></script>
       <script src="js/libs/depth.js"></script>
       <script src="js/brushes/ribbon.js" type="text/javascript" charset="utf-8"></script>
-      <script src="js/scripts.js" type="text/javascript" charset="utf-8"></script>
+      <script src="js/application.js" type="text/javascript" charset="utf-8"></script>
       
-      <link rel="stylesheet" href="css/style.css" type="text/css" media="screen" title="Style principal" charset="utf-8">
+      <link rel="stylesheet" href="css/application.css" type="text/css" media="screen" title="Style principal" charset="utf-8">
       
    </head>
    <body>
-      <h1>Canvas Light Painting</h1>
-      
       <div id="zoneDessin">
-         
          <div id="splash_accueil">
-            <h1>Kinect</h1>
-            <p>Nunc auctor bibendum eros. Maecenas porta accumsan mauris. Etiam enim enim, elementum sed, bibendum quis, rhoncus non, metus. Fusce neque dolor, adipiscing sed, consectetuer et, lacinia sit amet, quam. Suspendisse wisi quam, consectetuer in, blandit sed, suscipit eu, eros. Etiam ligula enim, tempor ut, blandit nec, mollis eu, lectus. Nam cursus. Vivamus iaculis. Aenean risus purus, pharetra in, blandit quis, gravida a, turpis. Donec nisl. Aenean eget mi. Fusce mattis est id diam. Phasellus faucibus interdum sapien. Duis quis nunc. Sed enim.</p>
-            <p><a href="#" id="commencerDessin">Kinect est requis pour accéder à cette Application</a></p>
-            <p class="plus-infos">Nécessite l'extension <a href="https://github.com/doug/depthjs" target="_blank">DepthJS</a>, disponible uniquement sur Chrome et Safari.</p>
+            <div id="titleAppli"></div>
+            <p>Bienvenue sur Lumoveo !<br />Avant de commencer l’expérience, vérifiez que votre Kinect est correctement branché sur une prise de courant ainsi qu’à votre Mac. N’oubliez pas de télécharger et d’installer correctement l’extension Chrome  Depth.js, nécessaire au fonctionnement de l’application, depuis <a href="https://github.com/doug/depthjs" target="_blank">ce lien</a>.<br />Et que la lumière soit !</p>
+            <p><a href="#" id="commencerDessin">Commencez l’expérience</a><span>Vous devez connecter Kinect pour utiliser l’application</span></p>
          </div>
          
          <canvas id="posKinect" width="870" height="600"></canvas>
          <div id="canvasSlider">
             <div id="canvasSliderContent">
-               
                <div id="configuration" class="floatLeft">
+                  <p id="choixCouleur">Choisissez votre couleur</p>
+                  <a href="#" id="colorBlue" class="colorSelector" data-color="[0,144,255]">Bleu</a>
+                  <a href="#" id="colorRed" class="colorSelector" data-color="[255,24,0]">Rouge</a>
+                  <a href="#" id="colorGreen" class="colorSelector" data-color="[0,237,11]">Vert</a>
+                  <a href="#" id="colorFuchsia" class="colorSelector" data-color="[255,0,216]">Fuchsia</a>
+                  <a href="#" id="colorYellow" class="colorSelector" data-color="[255,228,78]">Jaune</a>
                   <a href="#" id="colorWhite" class="colorSelector" data-color="[255,255,255]">Blanc</a>
-                  <a href="#" id="colorRed" class="colorSelector" data-color="[255,0,0]">Rouge</a>
-                  <a href="#" id="colorGreen" class="colorSelector" data-color="[0,255,0]">Vert</a>
-                  <a href="#" id="colorBlue" class="colorSelector" data-color="[0,0,255]">Bleu</a>
+                  <p id="cadreCouleurActuelle"></p>
+                  <p id="couleurActuelle">Couleur Actuelle</p>
+                  <p id="enregistrerImage">Enregistrez votre image</p>
                   <a href="#" id="savePng"></a>
-                  <p id="colorPreview" style="width:50px; height:50px; position:absolute; bottom:20px; left:20px"></p>
-               </div><!-- end #configuration -->
-               
-               
-               <div id="barre_laterale" class="floatLeft">
+                  <p id="retourScene">Faire glisser sur la gauche pour fermer les outils</p>
                   
-               </div><!-- End of #barre_laterale -->
-               
+                  <div id="popUpBackground"></div>
+                  <div id="form-finalisation" class="popUp">
+                     <a href="#"><img src="assets/popup-close.png" alt="Close"></a>
+                     <p>Finaliser la création</p>
+                     <p>Retournez à votre clavier pour écrire</p>
+                     <form action="#">
+                        <fieldset>
+                           <label for="pseudo">Pseudo</label><input type="text" name="pseudo" value="" id="pseudo">
+                           <label for="nom-creation">Nom de la création</label><input type="text" name="nom-creation" value="" id="nom-creation">
+                        </fieldset>
+                        <input type="submit" value="Enregistrer">
+                     </form>
+                  </div>
+                  
+               </div><!-- end #configuration -->
                <canvas id="toile" class="floatLeft" width="800" height="600"></canvas>
-               
             </div><!-- end #canvasSliderContent -->
          </div><!-- end #canvasSlider-->
       </div><!-- end zoneDessin -->
-      
    </body>
 </html>
