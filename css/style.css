@@ -1,128 +1,70 @@
-html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q,
-s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th,
-td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video { margin: 0;
-padding: 0; border: 0; font-size: 100%; font: inherit; vertical-align: baseline; }
-/* HTML5 display-role reset for older browsers */ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section { display: block; } body {
-line-height: 1; } ol, ul { list-style: none; } blockquote, q { quotes: none; } blockquote:before, blockquote:after, q:before, q:after { content: ''; content: none; }
-table { border-collapse: collapse; border-spacing: 0; }
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub,
+sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer,
+header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video { margin: 0; padding: 0; border: 0; font-size: 100%; font: inherit; vertical-align: baseline; }
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section { display: block; } body { line-height: 1; } ol, ul { list-style: none; } blockquote, q {
+quotes: none; } blockquote:before, blockquote:after, q:before, q:after { content: ''; content: none; } table { border-collapse: collapse; border-spacing: 0; }
 
+button, input, select, textarea { font-size: 100%; margin: 0; vertical-align: baseline; *vertical-align: middle; }
+button, input { line-height: normal; *overflow: visible; }
+button, input[type="button"], input[type="reset"], input[type="submit"] { cursor: pointer; -webkit-appearance: button; }
 
-#zoneDessin {
-   position:relative;
-   width:870px;
-   height:600px;
-}
+#zoneDessin { position:relative; width:800px; height:600px; }
 
-#splash_accueil {
-   position:absolute;
-   top:0;
-   left:0;
-   width:870px;
-   height:600px;
-   z-index:1000;
-   background-color:#000;
-}
-   #splash_accueil h1, #splash_accueil p {
-      width:600px;
-      margin:30px auto 10px;
-      color:#D7D7D7;
-   }
-   #splash_accueil h1 {
-      font-size:1.5em;
-      text-align:center;
-   }
-   #splash_accueil p {
-      text-align:justify;
-   }
-   #splash_accueil #commencerDessin {
-      display:block;
-      text-align:center;
-      width:360px;
-      margin:0 auto;
-      background-color:#FFF;
-      color:#79B2C4;
-      padding:8px;
-      border-radius: 10px;
-      -webkit-border-radius: 10px;
-      text-decoration:none;
-      cursor:default;
-   }
-      #splash_accueil #commencerDessin.kinectOk {
-         background-color:#BCD8E1;
-         color:#FFF;
-         cursor:pointer;
-      }
+#splash_accueil { position:absolute; top:0; left:0; width:800px; height:600px; z-index:1000; background:url(../assets/background.png) no-repeat #000; }
+   #splash_accueil #titleAppli, #splash_accueil p { width:700px; margin:30px auto 10px; }
+   #splash_accueil #titleAppli { margin:80px auto 50px; background:url(../assets/logo_black.png) no-repeat top center; height:44px;}
+   #splash_accueil p { text-align:justify; color:#1f1f1f; font: 20px/1.4em bold 'Trebuchet MS'; }
+      #splash_accueil #titleAppli + p a {color:#525252;}
+   #splash_accueil #commencerDessin { display: block; text-align: center; width: 360px; margin: 0 auto; background-color: #333; color: rgba(255,255,255,0.5); font:normal; padding: 8px; border-radius: 5px; -webkit-border-radius:
+      5px; text-decoration: none; cursor: default;
+      background:-moz-linear-gradient(top,#666 30%,#333);background:-ms-linear-gradient(top,#666 30%,#333); background:-webkit-gradient(linear, left top, left bottom, color-stop(30%, #666), color-stop(100%, #333)); background:-webkit-linear-gradient(top, #666
+30%,#333); background:linear-gradient(top, #666 30%,#333);
+      -webkit-box-shadow: 0px 0px 5px 1px #666; box-shadow: 0px 0px 5px 1px #666;}
       
-   #splash_accueil p.plus-infos {
-      font-size:0.7em;
-   }
+      #splash_accueil #commencerDessin.kinectOk { background-color:#BCD8E1; color:#FFF; cursor:pointer;
+         background:-moz-linear-gradient(top,#40515e 30%,#1f2c35);background:-ms-linear-gradient(top,#40515e 30%,#1f2c35); background:-webkit-gradient(linear, left top, left bottom, color-stop(30%, #40515e), color-stop(100%, #1f2c35)); background:-webkit-linear-gradient(top, #40515e
+            30%,#1f2c35); background:linear-gradient(top, #40515e 30%,#1f2c35);
+      }
+      #splash_accueil #commencerDessin + span { text-align:center; font-size:12px; margin-top:10px; display:block;}
+   #splash_accueil p.plus-infos { font-size:0.7em; }
       #splash_accueil p.plus-infos a {color:#BCD8E1; cursor:pointer;}
 
-#posKinect {
-   position:absolute;
-   top:0;
-   left:0;
-   z-index:10;
-}
+#posKinect { position:absolute; top:0; left:0; z-index:10; }
 
-#canvasSlider {
-   position:absolute;
-   top:0;
-   left:0;
-   width:870px;
-   height:600px;
-   overflow:hidden;
-}
-   #canvasSliderContent {
-      position:absolute;
-      left:-800px;
-      width:4000px;
-      height:600px;
-   }
+#canvasSlider { position:absolute; top:0; left:0; width:800px; height:600px; overflow:hidden; }
+   #canvasSliderContent { position:absolute; left:-800px; width:4000px; height:600px; }
 
-   #configuration {
-      position:relative;
-      width:800px;
-      height:600px;
-   }
-      #configuration a {
-         display:block;
-         position:absolute;
-         width:100px;
-         height:100px;
-      }
+   #configuration { position:relative; width:800px; height:600px; background:url(../assets/background.png) no-repeat #000; }
+      #configuration a { display:block; position:absolute; width:100px; height:100px; }
+      #configuration p { position:absolute; font-family:'Trebuchet MS', arial; color:#1f1f1f; text-align:center; }
+         #configuration p#choixCouleur { font-size:30px; top:120px; left:80px; width:190px; }
+            a.colorSelector { -webkit-box-shadow: 0px 0px 5px 2px #000000; box-shadow: 0px 0px 5px 1px #000000; text-indent:-9000em; }
+                a.colorSelector.hover { -webkit-box-shadow: 0px 0px 5px 1px #00b4ff; box-shadow: 0px 0px 5px 1px #00b4ff;}
+                #colorBlue  { top:195px; left:60px; background-color:rgb(0,144,255); }
+                #colorRed   { top:195px; left:180px; background-color:rgb(255,24,0); }
+                #colorGreen { top:195px; left:300px; background-color:rgb(0,237,11); }
+                #colorFuchsia { top:320px; left:60px; background-color:rgb(255,0,216); }
+                #colorYellow { top:320px; left:180px; background-color:rgb(255,228,78); }
+                #colorWhite { top:320px; left:300px; background-color:rgb(255,255,255); }
+         
+         #configuration p#cadreCouleurActuelle { width:28px; height:28px; left:130px; top:455px; display:block; background-color:rgb(255,255,255); }
+         
+         #configuration p#couleurActuelle { font-size:30px; left:175px; top:460px; }
+         
+         #configuration p#retourScene { font-family:"Trebuchet MS"; font-weight:bold; left:150px; top:525px; }
+            #configuration p#retourScene::before {content:url(../assets/arrow.png); width:30px; height:21px; float:left;}
+         
+         #configuration p#enregistrerImage { font-size:30px; top:150px; left:580px; width:190px; }
+         #configuration #savePng { width:137px; height:137px; top:250px; left:600px; background:url(../assets/save.png) no-repeat top left; }
+            #configuration #savePng.hover {background-image:url(../assets/save_hover.gif);}
       
-      #savePng {
-         bottom:50px;
-         right:50px;
-         background:url(../img/save.png) no-repeat top left;
-      } #savePng.hover {background-image:url(../img/save_hover.png);}
+      #configuration #popUpBackground { display:none; background-color:rgba(0,0,0,0.6); position:absolute; z-index:2000; top:0; left:0; height:100%; width:100%; cursor:pointer; }
+      #configuration #form-finalisation { display:none; position:absolute; z-index:2001; width:400px; background-color:white; padding:10px; border-radius: 5px; -webkit-border-radius: 5px;
+         -moz-border-radius: 5px; -o-border-radius: 5px; -webkit-box-shadow:2px 2px 0 rgba(0,0,0,.5); box-shadow:2px 2px 0 rgba(0,0,0,.5); top:200px; left:200px; }
       
-      a.colorSelector {
-         border:3px solid #000;
-         border-radius: 53px;
-         -webkit-border-radius: 53px;
-         text-indent:-9000em;
-      } a.colorSelector.hover { border-color : #00b4ff;}
-      
-         #colorWhite { top:20px; left:20px; background-color:rgb(255,255,255); }
-         #colorRed   { top:20px; left:140px; background-color:rgb(255,0,0); }
-         #colorGreen { top:20px; left:260px; background-color:rgb(0,255,0); }
-         #colorBlue  { top:20px; left:380px; background-color:rgb(0,0,255); }
-      
-
-   #barre_laterale {
-      background-color:#C6C6C6;
-      display:block;
-      width:70px;
-      height:600px;
-   }
-      
-   #toile {
-   }
-
-.floatLeft {
-   float:left;
-}
-
-
+         #form-finalisation p {margin:0; padding:0; position:relative;}
+         #form-finalisation > a { position:absolute; top:10px; right:10px; width:15px; height:15px;z-index:2011;}
+         #form-finalisation fieldset { margin:30px 0 10px; padding-top:5px; }
+            #form-finalisation label { float:left; width:130px; }
+         .must-fill-in {border-color:red;}
+.floatLeft { float:left; }
