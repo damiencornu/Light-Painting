@@ -1,1 +1,4 @@
-Projet de Light Painting avec Kinect
+Light Painting drawing using a Kinect.
+This project was made as an experiment in school.
+
+You need a Kinect plugged to your computer and the library depth.js (only available for Chrome and safari on Mac)
