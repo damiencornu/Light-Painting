@@ -66,5 +66,9 @@ button, input[type="button"], input[type="reset"], input[type="submit"] { cursor
          #form-finalisation > a { position:absolute; top:10px; right:10px; width:15px; height:15px;z-index:2011;}
          #form-finalisation fieldset { margin:30px 0 10px; padding-top:5px; }
             #form-finalisation label { float:left; width:130px; }
+   #splashFin { position:relative; width:800px; height:600px; }
+      #splashFin > div {position: absolute; left:0; bottom: 0px; width: 800px; height: 50px; background-color: rgba(255, 255, 255, 0.5);}
+      #splashFin > img {position: absolute; left:0; top: 0px;}
+      #splashFin > div a { line-height:50px; margin-left:20px; display:block; float:left; color:#FFF; }
          .must-fill-in {border-color:red;}
 .floatLeft { float:left; }
