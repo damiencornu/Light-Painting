@@ -1,4 +1,5 @@
 Light Painting drawing using a Kinect.
 This project was made as an experiment in school.
+You may find the project on http://preprod.hetic.net/lumoveo/dessin.html
 
 You need a Kinect plugged to your computer and the library depth.js (only available for Chrome and safari on Mac)
